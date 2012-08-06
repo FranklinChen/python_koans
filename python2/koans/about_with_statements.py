@@ -7,18 +7,23 @@
 
 from runner.koan import *
 
-import re # For regular expression string comparisons
+import re  # For regular expression string comparisons
+
 
 class AboutWithStatements(Koan):
     def count_lines(self, file_name):
-        file = open(file_name)
         try:
-            count = 0
-            for line in file.readlines():
-                count += 1
-            return count
-        finally:
-            if file: file.close()
+            f = open(file_name)
+            try:
+                count = 0
+                for line in f.readlines():
+                    count += 1
+                return count
+            finally:
+                f.close()
+        except IOError:
+            # should never happen
+            self.fail()
     
     def test_counting_lines(self):
         self.assertEqual(__, self.count_lines("example_file.txt"))
@@ -26,13 +31,18 @@ class AboutWithStatements(Koan):
     # ------------------------------------------------------------------
         
     def find_line(self, file_name):
-        file = open(file_name)
         try:
-            for line in file.readlines():
-                match = re.search('e', line)
-                if match: return line
-        finally:
-            if file: file.close()
+            f = open(file_name)
+            try:
+                for line in f.readlines():
+                    match = re.search('e', line)
+                    if match:
+                        return line
+            finally:
+                f.close()
+        except IOError:
+            # should never happen
+            self.fail()
     
     def test_finding_lines(self):
         self.assertEqual(__, self.find_line("example_file.txt"))
@@ -75,9 +85,9 @@ class AboutWithStatements(Koan):
     # Now we write:
     
     def count_lines2(self, file_name):
-        with self.FileContextManager(file_name) as file:
+        with self.FileContextManager(file_name) as f:
             count = 0
-            for line in file.readlines():
+            for line in f.readlines():
                 count += 1
         return count
     
@@ -87,20 +97,20 @@ class AboutWithStatements(Koan):
     # ------------------------------------------------------------------
     
     def find_line2(self, file_name):
-        # Rewrite find_line using the Context Manager.      
+        # Rewrite find_line using the Context Manager.
         pass
     
     def test_finding_lines2(self):
         self.assertEqual(__, self.find_line2("example_file.txt"))
-        self.assertNotEqual(__, self.find_line2("example_file.txt"))
+        self.assertNotEqual(None, self.find_line2("example_file.txt"))
     
     # ------------------------------------------------------------------
     
     def count_lines3(self, file_name):
-        with open(file_name) as file:
+        with open(file_name) as f:
             count = 0
-            for line in file.readlines():
-              count += 1
+            for line in f.readlines():
+                count += 1
             return count
     
     def test_open_already_has_its_own_built_in_context_manager(self):

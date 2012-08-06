@@ -28,8 +28,7 @@ class AboutGenerators(Koan):
         self.assertEqual(2, num_list[0])
         
         # A generator has to be iterated through.
-        self.assertRaises(___, num_generator[0]) # Evaluates num_generator[0]
-        self.assertEqual(__, list(num_generator)[0]) # This works though
+        self.assertEqual(__, list(num_generator)[0])
         
         # Both list comprehensions and generators can be iterated
         # though. However, a generator function is only called on the
@@ -134,9 +133,9 @@ class AboutGenerators(Koan):
         next(generator2)
         self.assertEqual(__, next(generator2))
 
-    def test_send_none_is_equivelant_to_next(self):
+    def test_send_none_is_equivalent_to_next(self):
         generator = self.yield_tester()
         
         next(generator)
-        # 'next(generator)' is exactly equivelant to 'generator.send(None)'
+        # 'next(generator)' is exactly equivalent to 'generator.send(None)'
         self.assertEqual(__, generator.send(None))
