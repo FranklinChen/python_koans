@@ -56,7 +56,15 @@ If you have problems, this may help:
 Getting Started
 ---------------
 
-From a *nix terminal or windows command prompt go to the python koans\python_<b>VERSION</b> folder and run::
+Jake Hebbert has created a couple of screencasts available here:
+
+http://vimeo.com/48330033
+
+http://vimeo.com/48387395
+
+Or if you prefer to read:
+
+From a *nix terminal or windows command prompt go to the python koans\python_VERSION folder and run::
 
     python contemplate_koans.py
 
